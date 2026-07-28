@@ -1,0 +1,131 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function userPath() {
+      return /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    function currentUser() {
+      return get(userPath()).data;
+    }
+
+    function isMemberOf(businessId) {
+      return signedIn()
+        && exists(userPath())
+        && currentUser().active == true
+        && currentUser().businessId == businessId;
+    }
+
+    function isOwnerOf(businessId) {
+      return isMemberOf(businessId) && currentUser().role == "owner";
+    }
+
+    match /businesses/{businessId} {
+      allow create: if signedIn()
+        && !exists(userPath())
+        && request.resource.data.ownerId == request.auth.uid
+        && request.resource.data.name is string;
+
+      allow read: if isMemberOf(businessId);
+      allow update: if isOwnerOf(businessId)
+        && request.resource.data.ownerId == resource.data.ownerId;
+      allow delete: if false;
+
+      match /leads/{leadId} {
+        allow read: if isMemberOf(businessId);
+
+        allow create: if isMemberOf(businessId)
+          && request.resource.data.businessId == businessId
+          && request.resource.data.createdBy == request.auth.uid
+          && request.resource.data.customerName is string
+          && request.resource.data.phone is string;
+
+        allow update: if isMemberOf(businessId)
+          && request.resource.data.businessId == businessId
+          && resource.data.businessId == businessId
+          && request.resource.data.createdBy == resource.data.createdBy
+          && request.resource.data.updatedBy == request.auth.uid;
+
+        allow delete: if isOwnerOf(businessId);
+      }
+    }
+
+    match /users/{userId} {
+      allow read: if signedIn() && (
+        request.auth.uid == userId
+        || isOwnerOf(resource.data.businessId)
+      );
+
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.active == true
+        && (
+          (
+            request.resource.data.role == "owner"
+            && getAfter(
+              /databases/$(database)/documents/businesses/$(request.resource.data.businessId)
+            ).data.ownerId == request.auth.uid
+          )
+          ||
+          (
+            request.resource.data.invitationCode is string
+            && get(
+              /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
+            ).data.active == true
+            && get(
+              /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
+            ).data.email == request.auth.token.email
+            && get(
+              /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
+            ).data.businessId == request.resource.data.businessId
+            && get(
+              /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
+            ).data.role == request.resource.data.role
+          )
+        );
+
+      allow update: if isOwnerOf(resource.data.businessId)
+        && request.resource.data.businessId == resource.data.businessId;
+      allow delete: if false;
+    }
+
+    match /invitations/{code} {
+      allow get: if signedIn() && (
+        isOwnerOf(resource.data.businessId)
+        || (
+          resource.data.active == true
+          && resource.data.email == request.auth.token.email
+        )
+      );
+
+      allow list: if false;
+
+      allow create: if signedIn()
+        && isOwnerOf(request.resource.data.businessId)
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.active == true
+        && request.resource.data.email is string
+        && request.resource.data.role in ["owner", "staff"];
+
+      allow update: if signedIn() && (
+        isOwnerOf(resource.data.businessId)
+        || (
+          resource.data.active == true
+          && resource.data.email == request.auth.token.email
+          && request.resource.data.email == resource.data.email
+          && request.resource.data.businessId == resource.data.businessId
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.active == false
+          && request.resource.data.claimedBy == request.auth.uid
+        )
+      );
+
+      allow delete: if isOwnerOf(resource.data.businessId);
+    }
+  }
+}

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LeadWorks CRM for waterproofing and leakproofing businesses">
+  <title>LeadWorks CRM</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="loading-screen" id="loadingScreen">
+    <div class="brand-mark">LW</div>
+    <p>Opening LeadWorks...</p>
+  </div>
+
+  <main class="auth-shell hidden" id="authShell">
+    <section class="auth-brand">
+      <div class="brand-block">
+        <div class="brand-mark">LW</div>
+        <div>
+          <h1>LeadWorks</h1>
+          <p>Waterproofing CRM</p>
+        </div>
+      </div>
+      <div class="auth-pitch">
+        <p class="eyebrow light">Built for waterproofing teams</p>
+        <h2>Every lead, visit and payment in one place.</h2>
+        <p>Keep owners, sales staff and site teams working from the same pipeline.</p>
+      </div>
+      <div class="auth-points">
+        <span>Shared lead pipeline</span>
+        <span>Owner and staff access</span>
+        <span>Follow-up accountability</span>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <div class="preview-banner hidden" id="previewBanner">
+          <strong>Preview mode</strong>
+          <span>Data stays in this browser until Firebase is connected.</span>
+        </div>
+
+        <div id="signInPanel">
+          <p class="eyebrow">Team access</p>
+          <h2>Sign in</h2>
+          <p class="auth-copy">Use your work account to open your company workspace.</p>
+          <form id="signInForm" class="stack-form">
+            <label>
+              <span>Email</span>
+              <input id="signInEmail" type="email" autocomplete="email" required placeholder="you@company.com">
+            </label>
+            <label>
+              <span>Password</span>
+              <input id="signInPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="Minimum 6 characters">
+            </label>
+            <button class="primary-action full-action" type="submit">Sign In</button>
+          </form>
+          <button class="text-action" type="button" id="forgotPasswordBtn">Forgot password?</button>
+          <div class="auth-divider"><span>New company or invited employee?</span></div>
+          <button class="secondary-light-action full-action" type="button" id="showSignUpBtn">Create Account</button>
+          <button class="preview-action hidden" type="button" id="previewLoginBtn">Open Preview Workspace</button>
+        </div>
+
+        <div class="hidden" id="signUpPanel">
+          <p class="eyebrow">Get started</p>
+          <h2>Create your account</h2>
+          <p class="auth-copy">Owners can create a company. Employees can join with an invitation code.</p>
+          <form id="signUpForm" class="stack-form">
+            <label>
+              <span>Full Name</span>
+              <input id="signUpName" required autocomplete="name" placeholder="Your name">
+            </label>
+            <label>
+              <span>Email</span>
+              <input id="signUpEmail" type="email" required autocomplete="email" placeholder="you@company.com">
+            </label>
+            <label>
+              <span>Password</span>
+              <input id="signUpPassword" type="password" required autocomplete="new-password" minlength="6" placeholder="Minimum 6 characters">
+            </label>
+            <label>
+              <span>Invitation Code <small>Leave empty if you are the owner</small></span>
+              <input id="invitationCode" autocomplete="off" placeholder="Example: A7K9P2">
+            </label>
+            <label id="businessNameWrap">
+              <span>Business Name</span>
+              <input id="businessName" placeholder="Example: Reliable Waterproofing">
+            </label>
+            <button class="primary-action full-action" type="submit">Create Account</button>
+          </form>
+          <button class="text-action" type="button" id="showSignInBtn">Back to sign in</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="app-shell hidden" id="appShell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <div class="brand-mark">LW</div>
+        <div>
+          <h1>LeadWorks</h1>
+          <p id="sidebarBusinessName">Waterproofing CRM</p>
+        </div>
+      </div>
+
+      <nav class="nav-list" aria-label="Primary">
+        <button class="nav-item is-active" type="button" data-view="dashboard">Dashboard</button>
+        <button class="nav-item" type="button" data-view="leads">All Leads</button>
+        <button class="nav-item" type="button" data-view="form">New Lead</button>
+        <button class="nav-item owner-only" type="button" data-view="team">Team</button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="secondary-action" type="button" id="exportCsvBtn">Export CSV</button>
+        <label class="secondary-action file-action owner-only">
+          Import CSV
+          <input type="file" id="importCsvInput" accept=".csv,text/csv">
+        </label>
+        <div class="account-block">
+          <strong id="accountName">User</strong>
+          <span id="accountRole">Staff</span>
+          <button type="button" id="signOutBtn">Sign out</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="businessEyebrow">Company workspace</p>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+        <div class="topbar-actions">
+          <span class="sync-status" id="syncStatus">Up to date</span>
+          <button class="primary-action" type="button" id="quickAddBtn">Add Lead</button>
+        </div>
+      </header>
+
+      <section class="view is-visible" id="dashboardView" aria-labelledby="pageTitle">
+        <div class="metric-grid">
+          <article class="metric-card"><span>Total Leads</span><strong id="metricTotal">0</strong></article>
+          <article class="metric-card"><span>Visit Pending</span><strong id="metricVisitPending">0</strong></article>
+          <article class="metric-card"><span>Quote Submitted</span><strong id="metricQuoteSubmitted">0</strong></article>
+          <article class="metric-card"><span>Work Completed</span><strong id="metricCompleted">0</strong></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel">
+            <div class="panel-heading"><h3>Pipeline</h3></div>
+            <div class="pipeline-list" id="pipelineList"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-heading"><h3>Needs Attention</h3></div>
+            <div class="attention-list" id="attentionList"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="leadsView" aria-labelledby="pageTitle">
+        <div class="toolbar">
+          <label class="search-box">
+            <span>Search</span>
+            <input type="search" id="searchInput" placeholder="Name, phone, address, notes">
+          </label>
+          <label><span>Category</span><select id="categoryFilter"><option value="">All Categories</option></select></label>
+          <label>
+            <span>Status</span>
+            <select id="statusFilter">
+              <option value="">All Status</option>
+              <option>Open</option>
+              <option>Work Completed</option>
+              <option>Lead Closed / Lost</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Lead</th><th>Category</th><th>Visit</th><th>Quotation</th>
+                <th>Follow-Up</th><th>Closure</th><th>Payment</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="leadTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="formView" aria-labelledby="pageTitle">
+        <form class="lead-form" id="leadForm">
+          <input type="hidden" id="leadId">
+          <section class="form-section">
+            <h3>Customer Details</h3>
+            <div class="form-grid">
+              <label><span>Customer Name</span><input id="customerName" required placeholder="Example: Rajesh Sharma"></label>
+              <label><span>Phone</span><input id="phone" required placeholder="+91 98765 43210"></label>
+              <label><span>Application Source</span><select id="category" required></select></label>
+              <label><span>Lead Date</span><input id="leadDate" type="date" required></label>
+              <label class="wide"><span>Site / Address</span><input id="address" placeholder="Project site or customer address"></label>
+              <label class="wide"><span>Requirement</span><textarea id="requirement" rows="3" placeholder="Terrace waterproofing, basement leakage, thermography inspection..."></textarea></label>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>Progress Tracking</h3>
+            <div class="form-grid">
+              <label><span>Visit Status</span><select id="visitStatus"></select></label>
+              <label><span>Visit Date / Time</span><input id="visitDateTime" type="datetime-local"></label>
+              <label><span>Quotation Status</span><select id="quotationStatus"></select></label>
+              <label><span>Quotation Amount</span><input id="quotationAmount" type="number" min="0" step="1" placeholder="0"></label>
+              <label><span>Follow-Up Stage</span><select id="followUpStage"></select></label>
+              <label><span>Next Follow-Up Date</span><input id="nextFollowUpDate" type="date"></label>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h3>Closure and Payment</h3>
+            <div class="form-grid">
+              <label><span>Lead Closure Status</span><select id="closureStatus"></select></label>
+              <label id="lostReasonWrap"><span>Lost Reason</span><select id="lostReason"></select></label>
+              <label id="paymentStatusWrap"><span>Payment Status</span><select id="paymentStatus"></select></label>
+              <label id="paymentAmountWrap"><span>Payment Received</span><input id="paymentReceived" type="number" min="0" step="1" placeholder="0"></label>
+              <label class="wide"><span>Notes</span><textarea id="notes" rows="4" placeholder="Objections, promised call date, material preference, decision maker..."></textarea></label>
+            </div>
+          </section>
+
+          <div class="form-actions">
+            <button class="ghost-action" type="button" id="resetFormBtn">Clear</button>
+            <button class="primary-action" type="submit" id="saveLeadBtn">Save Lead</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="view" id="teamView" aria-labelledby="pageTitle">
+        <div class="team-layout">
+          <section class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Owner controls</p>
+                <h3>Invite Employee</h3>
+              </div>
+            </div>
+            <form id="inviteForm" class="stack-form compact-form">
+              <label><span>Employee Email</span><input id="inviteEmail" type="email" required placeholder="employee@company.com"></label>
+              <label>
+                <span>Role</span>
+                <select id="inviteRole">
+                  <option value="staff">Staff</option>
+                  <option value="owner">Owner</option>
+                </select>
+              </label>
+              <button class="primary-action" type="submit">Create Invitation</button>
+            </form>
+            <div class="invite-result hidden" id="inviteResult">
+              <span>Share this code with the employee</span>
+              <strong id="inviteCodeResult"></strong>
+              <button class="text-action" type="button" id="copyInviteBtn">Copy code</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading"><h3>Team Members</h3><span class="badge" id="memberCount">0</span></div>
+            <div class="member-list" id="memberList"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+  <template id="emptyStateTemplate">
+    <tr><td colspan="8" class="empty-state">No leads found. Add the first lead to start tracking.</td></tr>
+  </template>
+
+  <script src="firebase-config.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-service.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
