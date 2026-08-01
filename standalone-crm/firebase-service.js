@@ -79,10 +79,22 @@
     async getLeads() {
       const demoLeads = JSON.parse(localStorage.getItem(DEMO_LEADS_KEY) || "[]");
       const websiteLeads = JSON.parse(localStorage.getItem(WEBSITE_LEADS_KEY) || "[]");
-      const merged = [...demoLeads, ...websiteLeads]
+      const remoteLeads = await this.fetchRemoteLeads();
+      const merged = [...demoLeads, ...websiteLeads, ...remoteLeads]
         .filter((lead, index, items) => items.findIndex((item) => item.id === lead.id) === index)
         .sort((a, b) => (b.updatedAt || b.createdAt || "").localeCompare(a.updatedAt || a.createdAt || ""));
       return merged.map((lead) => ({ ...lead, source: lead.source || "manual" }));
+    }
+
+    async fetchRemoteLeads() {
+      try {
+        const response = await fetch("http://127.0.0.1:8766/api/leads", { cache: "no-store" });
+        if (!response.ok) return [];
+        const payload = await response.json();
+        return Array.isArray(payload) ? payload : [];
+      } catch {
+        return [];
+      }
     }
 
     async saveLead(lead) {
@@ -134,7 +146,7 @@
             leadDate: isoToday(),
             address: "Baner, Pune",
             requirement: "Terrace waterproofing and leakage inspection",
-            visitStatus: "Visit Scheduled",
+            visitStatus: "Site Inspection Scheduled",
             visitDateTime: "",
             quotationStatus: "Quotation Under Preparation",
             quotationAmount: "85000",
@@ -160,7 +172,7 @@
             requirement: "Thermal inspection before repair work",
             visitStatus: "Visit Completed",
             visitDateTime: "",
-            quotationStatus: "Quotation Submitted",
+            quotationStatus: "Quote Sent",
             quotationAmount: "12000",
             followUpStage: "Follow-Up 2",
             nextFollowUpDate: isoToday(),

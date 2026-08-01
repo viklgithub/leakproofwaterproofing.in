@@ -1,7 +1,7 @@
 // Firebase web configuration is safe to expose in a browser app.
 // Keep service-account and Admin SDK keys out of this file.
 window.LEADWORKS_CONFIG = {
-  mode: "firebase",
+  mode: "demo",
   firebase: {
     apiKey: "AIzaSyDkbDc-J_wakRR8pcRdae36HCaIP7yFNhU",
     authDomain: "world-clock-he79g.firebaseapp.com",

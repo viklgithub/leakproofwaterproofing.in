@@ -129,6 +129,10 @@ function initialize() {
   const isDemo = service.mode === "demo";
   el.previewBanner.classList.toggle("hidden", !isDemo);
   el.previewLoginBtn.classList.toggle("hidden", !isDemo);
+  if (isDemo) {
+    el.signInEmail.value = "owner@demo.local";
+    el.signInPassword.value = "demo1234";
+  }
   service.start(handleAuthState);
 }
 
@@ -182,8 +186,14 @@ async function handleAuthState(nextSession, error) {
 
 async function signIn(event) {
   event.preventDefault();
+  const email = el.signInEmail.value.trim();
+  const password = el.signInPassword.value;
   await runAction(event.submitter, async () => {
-    await service.signIn(el.signInEmail.value.trim(), el.signInPassword.value);
+    if (service.mode === "demo") {
+      await service.signInDemo();
+      return;
+    }
+    await service.signIn(email, password);
   });
 }
 
@@ -290,7 +300,7 @@ async function saveLead(event) {
     followUpStage: fieldValue("followUpStage"),
     nextFollowUpDate: fieldValue("nextFollowUpDate"),
     closureStatus: fieldValue("closureStatus"),
-    lostReason: fieldValue("closureStatus") === "Lead Closed / Lost" ? fieldValue("lostReason") : "",
+    lostReason: fieldValue("closureStatus") === "Closed / Lost" ? fieldValue("lostReason") : "",
     paymentStatus: fieldValue("closureStatus") === "Work Completed" ? fieldValue("paymentStatus") : "Not Applicable",
     paymentReceived: fieldValue("closureStatus") === "Work Completed" ? fieldValue("paymentReceived") : "",
     notes: fieldValue("notes"),
@@ -360,7 +370,7 @@ function resetForm() {
 
 function updateConditionalFields() {
   const status = el.fields.closureStatus.value;
-  el.lostReasonWrap.classList.toggle("hidden", status !== "Lead Closed / Lost");
+  el.lostReasonWrap.classList.toggle("hidden", status !== "Closed / Lost");
   el.paymentStatusWrap.classList.toggle("hidden", status !== "Work Completed");
   el.paymentAmountWrap.classList.toggle("hidden", status !== "Work Completed");
 }
@@ -375,9 +385,9 @@ function render() {
 function renderDashboard() {
   el.metrics.total.textContent = leads.length;
   el.metrics.visitPending.textContent = leads.filter((lead) =>
-    lead.visitStatus === "Not Scheduled" || lead.visitStatus === "Visit Scheduled"
+    lead.visitStatus === "Not Scheduled" || lead.visitStatus === "Site Inspection Scheduled"
   ).length;
-  el.metrics.quoteSubmitted.textContent = leads.filter((lead) => lead.quotationStatus === "Quotation Submitted").length;
+  el.metrics.quoteSubmitted.textContent = leads.filter((lead) => ["Quote Sent", "Quote Approved", "Revision Requested"].includes(lead.quotationStatus)).length;
   el.metrics.completed.textContent = leads.filter((lead) => lead.closureStatus === "Work Completed").length;
 
   el.pipelineList.innerHTML = OPTIONS.categories.map((category) => {
@@ -488,7 +498,7 @@ async function copyInviteCode() {
 
 function closureBadge(lead) {
   if (lead.closureStatus === "Work Completed") return `<span class="badge success">Work Completed</span>`;
-  if (lead.closureStatus === "Lead Closed / Lost") {
+  if (lead.closureStatus === "Closed / Lost") {
     return `<span class="badge danger">Lost</span><span class="lead-subtext">${escapeHtml(lead.lostReason || "No reason")}</span>`;
   }
   return `<span class="badge warn">Open</span>`;
@@ -561,7 +571,7 @@ function csvRowToLead(row) {
     visitDateTime: row[7] || "",
     quotationStatus: row[8] || "Quotation Required",
     quotationAmount: row[9] || "",
-    followUpStage: row[10] || "Not Started",
+    followUpStage: row[10] || "New Enquiry",
     nextFollowUpDate: row[11] || "",
     closureStatus: row[12] || "Open",
     lostReason: row[13] || "",

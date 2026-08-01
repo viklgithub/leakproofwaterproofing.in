@@ -1,17 +1,17 @@
 :root {
-  --bg: #f3f6f6;
+  --bg: #f8fafc;
   --surface: #ffffff;
-  --surface-soft: #edf4f3;
-  --ink: #142021;
-  --muted: #657173;
-  --line: #d7e0df;
-  --brand: #0f766e;
-  --brand-dark: #115e59;
-  --nav: #102928;
-  --accent: #f59e0b;
-  --danger: #b42318;
-  --success: #047857;
-  --shadow: 0 14px 40px rgba(19, 32, 33, 0.08);
+  --surface-soft: #eef4ff;
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: #dbe7f5;
+  --brand: #2563eb;
+  --brand-dark: #1d4ed8;
+  --nav: #0f172a;
+  --accent: #06b6d4;
+  --danger: #dc2626;
+  --success: #0f766e;
+  --shadow: 0 18px 60px rgba(15, 23, 42, 0.08);
 }
 
 * {
@@ -22,8 +22,8 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--ink);
-  background: var(--bg);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
 }
 
 button,
@@ -66,9 +66,10 @@ button:disabled {
   place-items: center;
   width: 48px;
   height: 48px;
-  border-radius: 8px;
-  color: var(--nav);
-  background: var(--accent);
+  border-radius: 14px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.22);
   font-weight: 900;
 }
 
@@ -112,8 +113,8 @@ button:disabled {
   justify-content: space-between;
   min-height: 100vh;
   padding: clamp(32px, 6vw, 76px);
-  color: #f7fffe;
-  background: var(--nav);
+  color: #f8fbff;
+  background: radial-gradient(circle at top left, rgba(6, 182, 212, 0.2), transparent 32%), linear-gradient(135deg, #0f172a 0%, #111827 50%, #1e3a8a 100%);
 }
 
 .auth-pitch {
@@ -151,9 +152,9 @@ button:disabled {
 }
 
 .auth-card {
-  width: min(100%, 460px);
+  width: min(100%, 500px);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 24px;
   padding: 34px;
   background: var(--surface);
   box-shadow: var(--shadow);
@@ -231,7 +232,7 @@ textarea {
 .preview-action,
 .nav-item {
   border: 0;
-  border-radius: 8px;
+  border-radius: 999px;
   min-height: 42px;
   font-weight: 750;
 }
@@ -239,12 +240,12 @@ textarea {
 .primary-action {
   padding: 0 18px;
   color: #ffffff;
-  background: var(--brand);
-  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);
+  background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.18);
 }
 
 .primary-action:hover {
-  background: var(--brand-dark);
+  filter: brightness(1.04);
 }
 
 .full-action {
@@ -437,7 +438,7 @@ textarea {
 .panel,
 .lead-form {
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 22px;
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -499,8 +500,8 @@ textarea {
   align-items: center;
   padding: 12px;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fbfdfd;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fbfdff 0%, #f8fbff 100%);
 }
 
 .pipeline-row strong,
@@ -555,7 +556,7 @@ textarea {
 .table-wrap {
   overflow-x: auto;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 20px;
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -695,10 +696,10 @@ tbody tr:last-child td {
   bottom: 24px;
   z-index: 20;
   max-width: min(420px, calc(100vw - 32px));
-  border-radius: 8px;
+  border-radius: 18px;
   padding: 13px 16px;
   color: #ffffff;
-  background: #173b39;
+  background: linear-gradient(135deg, var(--nav) 0%, var(--brand) 100%);
   box-shadow: var(--shadow);
   font-size: 14px;
   font-weight: 700;
