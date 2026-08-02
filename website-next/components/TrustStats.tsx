@@ -1,7 +1,7 @@
 export default function TrustStats() {
   const stats = [
-    { value: '500+', label: 'Properties protected' },
-    { value: '15+', label: 'Years of expertise' },
+    { value: '100+', label: 'Properties protected' },
+    { value: '5+', label: 'Years of experience' },
     { value: '4.9/5', label: 'Average client rating' },
   ];
 

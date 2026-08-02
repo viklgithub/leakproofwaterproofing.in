@@ -57,13 +57,17 @@ export default function Contact() {
           <h2 className="mt-4 font-display text-3xl font-semibold text-slate-900 sm:text-4xl">Let’s solve the leak before it spreads.</h2>
           <p className="mt-4 text-lg leading-8 text-slate-600">Whether it’s a terrace issue, bathroom seepage or basement dampness, we’ll help you understand the best next step.</p>
           <div className="mt-8 space-y-3 text-base text-slate-700">
-            <p><span className="font-semibold text-slate-900">Phone:</span> +91 98765 43210</p>
-            <p><span className="font-semibold text-slate-900">Email:</span> hello@leakproofwaterproofing.in</p>
+            <p><span className="font-semibold text-slate-900">Office:</span> Office No. 04, Ganesh Vishwa Society, Sinhgad Institute Rd, Bhintade Nagar, Janaki Nagar, Raghav Nagar, Ambegaon Budruk, Pune, Maharashtra 411046</p>
+            <p><span className="font-semibold text-slate-900">Phone:</span> +91 89282 99010</p>
+            <p><span className="font-semibold text-slate-900">Email:</span> leakproofwaterproofing213@gmail.com</p>
             <p><span className="font-semibold text-slate-900">Service area:</span> Pune and nearby locations</p>
             <p><span className="font-semibold text-slate-900">Hours:</span> Mon–Sat · 9:00 AM to 7:00 PM</p>
           </div>
-          <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="mt-8 inline-flex rounded-full bg-cyan-500 px-5 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
+          <a href="https://wa.me/918928299010" target="_blank" rel="noreferrer" className="mt-8 inline-flex rounded-full bg-cyan-500 px-5 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5">
             WhatsApp us now
+          </a>
+          <a href="https://www.google.com/maps/place/Leakproof+waterproofing/@18.4579569,73.8373567,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc295c50a6d1525:0x820ee9158a06ebfa!8m2!3d18.4579569!4d73.8373567!16s%2Fg%2F11t4hgj0qd?entry=ttu&g_ep=EgoyMDI2MDcyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-3 text-sm font-semibold text-slate-700 transition-transform hover:-translate-y-0.5">
+            📍 View on Google Maps
           </a>
         </div>
         <form className="grid gap-4 md:grid-cols-2" onSubmit={onSubmit}>
@@ -73,7 +77,7 @@ export default function Contact() {
           </label>
           <label className="text-sm font-semibold text-slate-700">
             <span>Phone</span>
-            <input name="phone" value={form.phone} onChange={onChange} required className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0" placeholder="+91 98765 43210" />
+            <input name="phone" value={form.phone} onChange={onChange} required className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none ring-0" placeholder="+91 89282 99010" />
           </label>
           <label className="text-sm font-semibold text-slate-700">
             <span>Email</span>

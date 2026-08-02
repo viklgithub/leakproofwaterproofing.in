@@ -26,15 +26,19 @@ export default function Footer() {
           <div>
             <p className="font-semibold text-slate-900">Contact</p>
             <ul className="mt-3 space-y-2">
-              <li>+91 98765 43210</li>
-              <li>hello@leakproofwaterproofing.in</li>
+              <li>+91 89282 99010</li>
+              <li>leakproofwaterproofing213@gmail.com</li>
+              <li><a href="https://www.google.com/maps/place/Leakproof+waterproofing/@18.4579569,73.8373567,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc295c50a6d1525:0x820ee9158a06ebfa!8m2!3d18.4579569!4d73.8373567!16s%2Fg%2F11t4hgj0qd?entry=ttu&g_ep=EgoyMDI2MDcyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" className="hover:text-cyan-600">📍 Google Profile</a></li>
             </ul>
           </div>
         </div>
       </div>
       <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-3 border-t border-slate-200 pt-6 text-slate-500 md:flex-row md:items-center md:justify-between">
         <p>© 2026 LeakProof Waterproofing. All rights reserved.</p>
-        <p>Licensed • Insured • Warranty-backed</p>
+        <div className="space-y-1 text-sm">
+          <p>Licensed • Insured • Warranty-backed</p>
+          <p>Designed and Managed by: Vikram Lokhande</p>
+        </div>
       </div>
     </footer>
   );
