@@ -7,3 +7,6 @@ coverage/
 .env
 .env.local
 .env.*.local
+.open-next/
+.wrangler/
+website-next/.dev.vars
