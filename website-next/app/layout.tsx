@@ -1,5 +1,20 @@
 import type { Metadata } from 'next';
+import { Sora, Inter } from 'next/font/google';
 import './globals.css';
+
+const sora = Sora({
+  subsets: ['latin'],
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-sans',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'LeakProof Waterproofing | Premium Waterproofing in Pune',
@@ -22,8 +37,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-slate-50 text-slate-900">{children}</body>
+    <html lang="en" suppressHydrationWarning className={`${sora.variable} ${inter.variable}`}>
+      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">{children}</body>
     </html>
   );
 }
