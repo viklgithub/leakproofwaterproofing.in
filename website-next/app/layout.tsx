@@ -17,13 +17,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'LeakProof Waterproofing | Premium Waterproofing in Pune',
-  description: 'Professional terrace, bathroom, basement and tank waterproofing services in Pune with free inspection, warranty-backed work, and fast response.',
-  keywords: ['waterproofing pune', 'terrace waterproofing', 'bathroom waterproofing', 'basement waterproofing', 'tank waterproofing'],
+  title: 'LeakProof Waterproofing | Waterproofing, Painting & Construction Materials in Pune',
+  description: 'Waterproofing, painting, grouting, epoxy flooring, infrared thermography, civil works and waterproofing consultancy in Pune. Authorised distributor of Dr. Fixit, Sika, Fosroc, Astral and more.',
+  keywords: ['waterproofing pune', 'terrace waterproofing', 'bathroom waterproofing', 'basement waterproofing', 'tank waterproofing', 'grouting', 'epoxy flooring', 'painting services pune', 'waterproofing chemicals', 'construction materials pune', 'Dr Fixit distributor', 'Sika distributor'],
   alternates: { canonical: 'https://leakproofwaterproofing.in/' },
   openGraph: {
-    title: 'LeakProof Waterproofing | Premium Waterproofing in Pune',
-    description: 'Professional waterproofing services with trusted craftsmanship and fast site visits.',
+    title: 'LeakProof Waterproofing | Waterproofing, Painting & Construction Materials in Pune',
+    description: 'Waterproofing, painting, grouting, epoxy flooring and construction materials in Pune. Authorised distributor of leading brands.',
     type: 'website',
     url: 'https://leakproofwaterproofing.in/',
     locale: 'en_IN',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'LeakProof Waterproofing',
-    description: 'Premium waterproofing solutions for homes and commercial properties in Pune.',
+    description: 'Waterproofing, painting and construction materials in Pune. Authorised distributor of leading brands.',
   },
 };
 

@@ -1,11 +1,15 @@
 import SectionHeading from '@/components/SectionHeading';
-import { HomeIcon, BathIcon, BuildingIcon, TankIcon, ArrowRightIcon } from '@/components/Icons';
+import { HomeIcon, BathIcon, BuildingIcon, TankIcon, RollerIcon, InjectIcon, LayersIcon, FlaskIcon, ArrowRightIcon } from '@/components/Icons';
 
 const services = [
-  { title: 'Terrace Waterproofing', description: 'Seal exposed roof areas against monsoon seepage, ponding and surface cracking with a layered system designed to last.', Icon: HomeIcon },
-  { title: 'Bathroom & Wet Area', description: 'Stop recurring leaks in bathrooms, kitchens and utility spaces with moisture-proof membranes and precise detailing.', Icon: BathIcon },
-  { title: 'Basement & Foundation', description: 'Protect below-grade walls and floors from moisture ingress with robust damp-proofing systems and drainage care.', Icon: BuildingIcon },
-  { title: 'Tank & Water Retaining', description: 'Create a clean, durable barrier for overhead and underground water storage structures with leak-proof treatment.', Icon: TankIcon },
+  { title: 'Waterproofing', description: 'Complete waterproofing for terraces, roofs, bathrooms, basements and tanks with durable, site-tested systems.', Icon: HomeIcon },
+  { title: 'Painting', description: 'Protective and decorative painting with premium paints and putty for a clean, long-lasting finish.', Icon: RollerIcon },
+  { title: 'Infrared Thermography', description: 'Advanced thermal imaging to detect hidden moisture, seepage and structural issues without damage.', Icon: FlaskIcon },
+  { title: 'Grouting', description: 'Precision grouting to seal cracks, joints and voids and restore structural integrity.', Icon: InjectIcon },
+  { title: 'Epoxy Flooring Services', description: 'High-performance epoxy flooring for industrial, commercial and residential spaces that resists wear and chemicals.', Icon: LayersIcon },
+  { title: 'Civil Works', description: 'Reliable civil repair and restoration work that supports long-term structural health.', Icon: BuildingIcon },
+  { title: 'Waterproofing Consultant', description: 'Expert guidance on the right waterproofing system, materials and detailing for your project.', Icon: TankIcon },
+  { title: 'Chemical Sales', description: 'Genuine waterproofing chemicals and construction materials supplied at competitive prices.', Icon: FlaskIcon },
 ];
 
 export default function Services() {

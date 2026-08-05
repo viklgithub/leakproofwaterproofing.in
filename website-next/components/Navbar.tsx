@@ -5,6 +5,7 @@ import { DropletIcon, PhoneIcon } from '@/components/Icons';
 
 const links = [
   { href: '#services', label: 'Services' },
+  { href: '#products', label: 'Products' },
   { href: '#why-us', label: 'Why Us' },
   { href: '#process', label: 'Process' },
   { href: '#contact', label: 'Contact' },

@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import TrustStats from '@/components/TrustStats';
 import WhyUs from '@/components/WhyUs';
 import Services from '@/components/Services';
+import Products from '@/components/Products';
 import Process from '@/components/Process';
 import Gallery from '@/components/Gallery';
 import Contact from '@/components/Contact';
@@ -17,6 +18,7 @@ export default function Home() {
       <TrustStats />
       <WhyUs />
       <Services />
+      <Products />
       <Process />
       <Gallery />
       <Contact />

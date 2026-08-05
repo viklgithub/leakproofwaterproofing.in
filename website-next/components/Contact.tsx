@@ -66,8 +66,9 @@ export default function Contact() {
 
             <div className="mt-8 space-y-4">
               {[
-                { Icon: MapPinIcon, label: 'Office', value: 'Ganesh Vishwa Society, Sinhgad Institute Rd, Ambegaon Budruk, Pune, Maharashtra 411046' },
-                { Icon: PhoneIcon, label: 'Phone', value: '+91 89282 99010' },
+                { Icon: MapPinIcon, label: 'Sales Office', value: 'Navale Bridge, Pune, Maharashtra' },
+                { Icon: PhoneIcon, label: 'Mobile', value: '+91 89282 99010' },
+                { Icon: PhoneIcon, label: 'Office', value: '95294 46645 · 80805 62780' },
                 { Icon: MailIcon, label: 'Email', value: 'leakproofwaterproofing213@gmail.com' },
                 { Icon: ClockIcon, label: 'Hours', value: 'Mon–Sat · 9:00 AM to 7:00 PM · Serving Pune & nearby' },
               ].map(({ Icon, label, value }) => (

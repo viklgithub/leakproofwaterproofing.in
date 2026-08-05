@@ -18,15 +18,17 @@ export default function Footer() {
           <div>
             <p className="font-semibold text-white">Services</p>
             <ul className="mt-4 space-y-2.5">
-              <li><a href="#services" className="transition-colors hover:text-cyan-300">Terrace waterproofing</a></li>
-              <li><a href="#services" className="transition-colors hover:text-cyan-300">Bathroom sealing</a></li>
-              <li><a href="#services" className="transition-colors hover:text-cyan-300">Basement protection</a></li>
+              <li><a href="#services" className="transition-colors hover:text-cyan-300">Waterproofing</a></li>
+              <li><a href="#services" className="transition-colors hover:text-cyan-300">Painting</a></li>
+              <li><a href="#services" className="transition-colors hover:text-cyan-300">Grouting</a></li>
+              <li><a href="#services" className="transition-colors hover:text-cyan-300">Epoxy flooring</a></li>
             </ul>
           </div>
           <div>
             <p className="font-semibold text-white">Quick links</p>
             <ul className="mt-4 space-y-2.5">
               <li><a href="#why-us" className="transition-colors hover:text-cyan-300">Why choose us</a></li>
+              <li><a href="#products" className="transition-colors hover:text-cyan-300">Products</a></li>
               <li><a href="#process" className="transition-colors hover:text-cyan-300">Our process</a></li>
               <li><a href="#contact" className="transition-colors hover:text-cyan-300">Contact</a></li>
             </ul>
@@ -35,8 +37,9 @@ export default function Footer() {
             <p className="font-semibold text-white">Contact</p>
             <ul className="mt-4 space-y-2.5">
               <li className="flex items-center gap-2"><PhoneIcon className="h-4 w-4 text-cyan-300" /> +91 89282 99010</li>
+              <li className="flex items-center gap-2"><PhoneIcon className="h-4 w-4 text-cyan-300" /> 95294 46645 · 80805 62780</li>
               <li className="flex items-start gap-2"><MailIcon className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" /> <span className="break-all">leakproofwaterproofing213@gmail.com</span></li>
-              <li><a href="https://www.google.com/maps/place/Leakproof+waterproofing/@18.4579569,73.8373567,17z/data=!3m1!4b1!4m6!3m5!1s0x3bc295c50a6d1525:0x820ee9158a06ebfa!8m2!3d18.4579569!4d73.8373567!16s%2Fg%2F11t4hgj0qd?entry=ttu&g_ep=EgoyMDI2MDcyOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer" className="flex items-center gap-2 transition-colors hover:text-cyan-300"><MapPinIcon className="h-4 w-4 text-cyan-300" /> Google Profile</a></li>
+              <li className="flex items-start gap-2"><MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" /> Navale Bridge, Pune</li>
             </ul>
           </div>
         </div>

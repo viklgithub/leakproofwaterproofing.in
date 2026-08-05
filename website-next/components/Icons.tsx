@@ -77,6 +77,38 @@ export function RollerIcon(props: IconProps) {
   );
 }
 
+export function InjectIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="m10 3 8.5 8.5-1.4 1.4L8.6 4.4z" />
+      <path d="M13 6l5 5" />
+      <path d="m6.5 6.5 8.5 8.5" />
+      <path d="M7 17h10M9.5 20h5" />
+      <path d="m7 17-3.5-5L7 9" />
+      <path d="M14 11.5 12.5 8" />
+    </svg>
+  );
+}
+
+export function LayersIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="m12 3 9 5-9 5-9-5 9-5Z" />
+      <path d="m3 13 9 5 9-5" />
+      <path d="m3 17.5 9 5 9-5" />
+    </svg>
+  );
+}
+
+export function FlaskIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M9 3h6M10 3v6l-5.5 9A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-3L14 9V3" />
+      <path d="M7.5 15h9" />
+    </svg>
+  );
+}
+
 export function CheckBadgeIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>
