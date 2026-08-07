@@ -40,8 +40,6 @@ const el = {
   signUpEmail: document.querySelector("#signUpEmail"),
   signUpPassword: document.querySelector("#signUpPassword"),
   invitationCode: document.querySelector("#invitationCode"),
-  businessName: document.querySelector("#businessName"),
-  businessNameWrap: document.querySelector("#businessNameWrap"),
   showSignUpBtn: document.querySelector("#showSignUpBtn"),
   showSignInBtn: document.querySelector("#showSignInBtn"),
   forgotPasswordBtn: document.querySelector("#forgotPasswordBtn"),
@@ -144,7 +142,6 @@ function bindEvents() {
   el.signUpForm.addEventListener("submit", signUp);
   el.forgotPasswordBtn.addEventListener("click", resetPassword);
   el.signOutBtn.addEventListener("click", () => service.signOut());
-  el.invitationCode.addEventListener("input", updateSignUpMode);
 
   el.navItems.forEach((item) => item.addEventListener("click", () => setView(item.dataset.view)));
   el.quickAddBtn.addEventListener("click", () => {
@@ -199,23 +196,20 @@ async function signIn(event) {
 
 async function signUp(event) {
   event.preventDefault();
-  const invitationCode = el.invitationCode.value.trim();
   const payload = {
     name: el.signUpName.value.trim(),
     email: el.signUpEmail.value.trim(),
     password: el.signUpPassword.value,
-    invitationCode,
-    businessName: el.businessName.value.trim()
+    invitationCode: el.invitationCode.value.trim()
   };
 
-  if (!invitationCode && !payload.businessName) {
-    showToast("Enter the business name to create an owner account.", true);
+  if (!payload.invitationCode) {
+    showToast("Enter your invitation code to join your company.", true);
     return;
   }
 
   await runAction(event.submitter, async () => {
-    if (invitationCode) await service.signUpWithInvite(payload);
-    else await service.signUpOwner(payload);
+    await service.signUpWithInvite(payload);
   });
 }
 
@@ -237,11 +231,6 @@ function showAuthPanel(panel) {
   el.signUpPanel.classList.toggle("hidden", panel !== "signup");
 }
 
-function updateSignUpMode() {
-  const joining = Boolean(el.invitationCode.value.trim());
-  el.businessNameWrap.classList.toggle("hidden", joining);
-  el.businessName.required = !joining;
-}
 
 function configureWorkspace() {
   const isOwner = session.profile.role === "owner";

@@ -57,7 +57,7 @@
             <button class="primary-action full-action" type="submit">Sign In</button>
           </form>
           <button class="text-action" type="button" id="forgotPasswordBtn">Forgot password?</button>
-          <div class="auth-divider"><span>New company or invited employee?</span></div>
+          <div class="auth-divider"><span>Invited employee?</span></div>
           <button class="secondary-light-action full-action" type="button" id="showSignUpBtn">Create Account</button>
           <button class="preview-action hidden" type="button" id="previewLoginBtn">Open Preview Workspace</button>
         </div>
@@ -65,7 +65,7 @@
         <div class="hidden" id="signUpPanel">
           <p class="eyebrow">Get started</p>
           <h2>Create your account</h2>
-          <p class="auth-copy">Owners can create a company. Employees can join with an invitation code.</p>
+          <p class="auth-copy">Join your company with the invitation code from your owner.</p>
           <form id="signUpForm" class="stack-form">
             <label>
               <span>Full Name</span>
@@ -80,12 +80,8 @@
               <input id="signUpPassword" type="password" required autocomplete="new-password" minlength="6" placeholder="Minimum 6 characters">
             </label>
             <label>
-              <span>Invitation Code <small>Leave empty if you are the owner</small></span>
-              <input id="invitationCode" autocomplete="off" placeholder="Example: A7K9P2">
-            </label>
-            <label id="businessNameWrap">
-              <span>Business Name</span>
-              <input id="businessName" placeholder="Example: Reliable Waterproofing">
+              <span>Invitation Code</span>
+              <input id="invitationCode" required autocomplete="off" placeholder="Example: A7K9P2">
             </label>
             <button class="primary-action full-action" type="submit">Create Account</button>
           </form>

@@ -10,3 +10,4 @@ coverage/
 .open-next/
 .wrangler/
 website-next/.dev.vars
+.firebase/

@@ -26,10 +26,9 @@ service cloud.firestore {
     }
 
     match /businesses/{businessId} {
-      allow create: if signedIn()
-        && !exists(userPath())
-        && request.resource.data.ownerId == request.auth.uid
-        && request.resource.data.name is string;
+      // Public owner signup is disabled. Businesses are created manually
+      // (or via a trusted admin process), never from the client.
+      allow create: if false;
 
       allow read: if isMemberOf(businessId);
       allow update: if isOwnerOf(businessId)
@@ -61,33 +60,25 @@ service cloud.firestore {
         || isOwnerOf(resource.data.businessId)
       );
 
+      // Users can only join via an invitation code. Owner accounts are
+      // provisioned manually by an admin (e.g. Firebase console), never
+      // self-created from the client.
       allow create: if signedIn()
         && request.auth.uid == userId
         && request.resource.data.active == true
-        && (
-          (
-            request.resource.data.role == "owner"
-            && getAfter(
-              /databases/$(database)/documents/businesses/$(request.resource.data.businessId)
-            ).data.ownerId == request.auth.uid
-          )
-          ||
-          (
-            request.resource.data.invitationCode is string
-            && get(
-              /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
-            ).data.active == true
-            && get(
-              /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
-            ).data.email == request.auth.token.email
-            && get(
-              /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
-            ).data.businessId == request.resource.data.businessId
-            && get(
-              /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
-            ).data.role == request.resource.data.role
-          )
-        );
+        && request.resource.data.invitationCode is string
+        && get(
+          /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
+        ).data.active == true
+        && get(
+          /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
+        ).data.email == request.auth.token.email
+        && get(
+          /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
+        ).data.businessId == request.resource.data.businessId
+        && get(
+          /databases/$(database)/documents/invitations/$(request.resource.data.invitationCode)
+        ).data.role == request.resource.data.role;
 
       allow update: if isOwnerOf(resource.data.businessId)
         && request.resource.data.businessId == resource.data.businessId;
@@ -105,12 +96,14 @@ service cloud.firestore {
 
       allow list: if false;
 
+      // Only staff invitations can be created from the client.
+      // Owner accounts are provisioned manually in the Firebase console.
       allow create: if signedIn()
         && isOwnerOf(request.resource.data.businessId)
         && request.resource.data.createdBy == request.auth.uid
         && request.resource.data.active == true
         && request.resource.data.email is string
-        && request.resource.data.role in ["owner", "staff"];
+        && request.resource.data.role == "staff";
 
       allow update: if signedIn() && (
         isOwnerOf(resource.data.businessId)

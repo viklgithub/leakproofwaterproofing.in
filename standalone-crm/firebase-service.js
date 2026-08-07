@@ -45,17 +45,6 @@
       return this.signInDemo();
     }
 
-    async signUpOwner({ name, email, businessName }) {
-      await this.signInDemo();
-      this.session.user.email = email;
-      this.session.user.displayName = name;
-      this.session.profile.email = email;
-      this.session.profile.name = name;
-      this.session.business.name = businessName;
-      this.authListener(this.session);
-      return this.session;
-    }
-
     async signUpWithInvite({ name, email }) {
       await this.signInDemo();
       this.session.user.email = email;
@@ -263,40 +252,6 @@
     async signIn(email, password) {
       const credential = await this.auth.signInWithEmailAndPassword(email, password);
       return this.buildSession(credential.user);
-    }
-
-    async signUpOwner({ name, email, password, businessName }) {
-      this.provisioning = true;
-      let credential;
-      try {
-        credential = await this.auth.createUserWithEmailAndPassword(email, password);
-        await credential.user.updateProfile({ displayName: name });
-        const businessRef = this.db.collection("businesses").doc();
-        const userRef = this.db.collection("users").doc(credential.user.uid);
-        const batch = this.db.batch();
-        batch.set(businessRef, {
-          name: businessName,
-          ownerId: credential.user.uid,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        batch.set(userRef, {
-          name,
-          email: email.toLowerCase(),
-          role: "owner",
-          businessId: businessRef.id,
-          active: true,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        await batch.commit();
-        this.session = await this.buildSession(credential.user);
-        this.authListener(this.session);
-        return this.session;
-      } catch (error) {
-        if (credential?.user) await credential.user.delete().catch(() => {});
-        throw error;
-      } finally {
-        this.provisioning = false;
-      }
     }
 
     async signUpWithInvite({ name, email, password, invitationCode }) {
